@@ -8,7 +8,7 @@ import puppeteer from "puppeteer";
 export const scraperYoutubeLiveChatHelper = async (
   videoId: string
 ): Promise<YouTubeChatMessageInterface[]> => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({ headless: "new" });
   const page = await browser.newPage();
   const url = `${YOUTUBE_LIVE_CHAT_LINK_CONSTANT}${videoId}`;
 
