@@ -11,3 +11,6 @@ export const YOUTUBE_HTTP_HEADERS_CONSTANT = {
   "User-Agent":
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML%2C like Gecko) Chrome/104.0.0.0 Safari/537.36",
 };
+
+export const YOUTUBE_ELEMENT_CHAT_MESSAGE_CONSTANT =
+  "yt-live-chat-text-message-renderer";
