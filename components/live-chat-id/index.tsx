@@ -3,16 +3,20 @@
 import { Space, Input } from 'antd';
 import { WechatOutlined } from '@ant-design/icons';
 import { SearchProps } from 'antd/es/input';
+import { useRouter } from 'next/navigation';
 
-interface Props {
+type Props = {
   version: string;
-}
-
-const onSearch: SearchProps['onSearch'] = (value, _e, info) => {
-  console.log(info?.source, value);
 };
 
 const LiveChatId = (props: Props) => {
+  const router = useRouter();
+
+  const onSearch: SearchProps['onSearch'] = (value, _e, info) => {
+    console.log(info?.source, value);
+    router.push(`/yt-live-chat/${value}`);
+  };
+
   return (
     <div className="m-5">
       <div className="flex gap-1 items-center text-center mb-5">
