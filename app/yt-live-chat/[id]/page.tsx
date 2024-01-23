@@ -1,4 +1,5 @@
 import { scraperYoutubeLiveChatHelper } from '@/helpers/scraper.helper';
+import { YouTubeChatMessageInterface } from '@/interfaces/youtube.interface';
 
 type Props = {
   params: {
@@ -6,15 +7,22 @@ type Props = {
   };
 };
 
-const getChatMessage = async (liveId: string) => {
-  const messages = await scraperYoutubeLiveChatHelper(liveId);
-  console.log('messages', messages);
+const getMessages = (liveId: string) => setInterval(async () => {
+  let messages: YouTubeChatMessageInterface[] = [];
+  messages = await scraperYoutubeLiveChatHelper(liveId);
+  console.log('liveId', liveId);
+  console.log('message', messages);
   return messages;
-};
+}, 10000);
 
 const YtLiveChatPage = async ({ params }: Props) => {
   const id = params.id;
-  return <h2 style={{ fontSize: 30, fontWeight: 'bold' }}>id: {id}</h2>;
+  getMessages(id);
+  return (
+    <>
+      <h2 style={{ fontSize: 30, fontWeight: 'bold' }}>id: {id}</h2>
+    </>
+  );
 };
 
 export default YtLiveChatPage;
