@@ -4,7 +4,6 @@ import axios from 'axios';
 import ScrollEvent from '../common/scroll-event';
 import ChatMessage from '../chat-message';
 import { Row, Col } from 'antd';
-import { YouTubeChatMessageInterface } from '@/interfaces/youtube.interface';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { useEffect } from 'react';
 import { setMessages } from '@/redux/slices/youtube';
