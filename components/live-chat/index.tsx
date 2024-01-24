@@ -1,5 +1,6 @@
 'use client';
 
+import axios from 'axios';
 import ScrollEvent from '../common/scroll-event';
 import ChatMessage from '../chat-message';
 import { Row, Col } from 'antd';
@@ -12,20 +13,17 @@ type Props = {
   liveId: string;
 };
 
-// type Props = {
-//   messages: YouTubeChatMessageInterface[];
-// };
-
 const LiveChat = (props: Props) => {
   const dispatch = useAppDispatch();
-  // const getMessages = async (liveId: string) => {
-  //   const res = await fetch(`localhost:3000/youtube/${liveId}`);
-  //   dispatch(setMessages({ messages: res.messages }));
-  // };
+
+  const getMessages = async (liveId: string) => {
+    const { data } = await axios.get(`/api/youtube/${liveId}`);
+    dispatch(setMessages(data.messages));
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
-      // getMessages(props.liveId);
+      getMessages(props.liveId);
     }, 10000);
     return () => clearInterval(interval);
   }, []);
