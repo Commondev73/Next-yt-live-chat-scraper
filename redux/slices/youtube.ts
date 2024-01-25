@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { YouTubeChatMessageInterface } from '@/interfaces/youtube.interface';
-import { union } from 'lodash'
+import { uniqWith, isEqual } from 'lodash'
 
 export interface YoutubeState {
     messages: YouTubeChatMessageInterface[]
@@ -15,9 +15,7 @@ export const youtubeSlice = createSlice({
     initialState,
     reducers: {
         setMessages: (state, action: PayloadAction<YoutubeState>) => {
-            return {
-                messages: union(state.messages, action.payload.messages)
-            }
+            state.messages = uniqWith([...state.messages, ...action.payload.messages], isEqual)
         }
     }
 })

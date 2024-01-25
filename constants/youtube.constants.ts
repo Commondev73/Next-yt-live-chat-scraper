@@ -14,3 +14,5 @@ export const YOUTUBE_HTTP_HEADERS_CONSTANT = {
 
 export const YOUTUBE_ELEMENT_CHAT_MESSAGE_CONSTANT =
   "yt-live-chat-text-message-renderer";
+
+export const YOUTUBE_LIVE_CHAT_DELAY = 15 * 1000 // 15 sec
