@@ -4,6 +4,7 @@ import { Space, Input } from 'antd';
 import { WechatOutlined } from '@ant-design/icons';
 import { SearchProps } from 'antd/es/input';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 type Props = {
   version: string;
@@ -11,9 +12,11 @@ type Props = {
 
 const LiveChatId = (props: Props) => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const onSearch: SearchProps['onSearch'] = (value, _e, info) => {
-    console.log(info?.source, value);
+    setLoading(true);
+    // console.log(info?.source, value);
     router.push(`/yt-live-chat/${value}`);
   };
 
@@ -32,6 +35,7 @@ const LiveChatId = (props: Props) => {
         allowClear
         enterButton
         size="large"
+        loading={loading}
         onSearch={onSearch}
       />
     </div>

@@ -3,7 +3,7 @@
 import axios from 'axios';
 import ScrollEvent from '../common/scroll-event';
 import ChatMessage from '../chat-message';
-import { Row, Col } from 'antd';
+import LoadingPage from '../common/loading-page';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { useEffect } from 'react';
 import { setMessages } from '@/redux/slices/youtube';
@@ -17,6 +17,9 @@ type Props = {
 
 const LiveChat = (props: Props) => {
   const dispatch = useAppDispatch();
+  const messages: YouTubeChatMessageInterface[] = useAppSelector(
+    (state) => state.youtube.messages,
+  );
 
   const getMessages = async (liveId: string) => {
     let messages: YouTubeChatMessageInterface[] = [];
@@ -29,6 +32,13 @@ const LiveChat = (props: Props) => {
     dispatch(setMessages({ messages }));
   };
 
+  const scrollToBottom = () => {
+    const element = document.getElementById('scrollEvent') as HTMLElement;
+    if (element && element.scrollHeight > 0) {
+      window.scrollTo({ top: element.scrollHeight, behavior: 'smooth' });
+    }
+  };
+
   useEffect(() => {
     getMessages(props.liveId);
     const interval = setInterval(() => {
@@ -37,23 +47,27 @@ const LiveChat = (props: Props) => {
     return () => clearInterval(interval);
   });
 
-  const messages: YouTubeChatMessageInterface[] = useAppSelector(
-    (state) => state.youtube.messages,
-  );
-  
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   return (
     <>
-      <Row>
-        <Col span={12}>
-          <ChatMessage></ChatMessage>
-          <ScrollEvent>
-            <></>
-          </ScrollEvent>
-        </Col>
-      </Row>
-      <div>
-        <pre>{JSON.stringify(messages, null, 4)}</pre>
-      </div>
+      {isEmpty(messages) ? (
+        <LoadingPage />
+      ) : (
+        <ScrollEvent>
+          {messages.map(
+            (message: YouTubeChatMessageInterface, index: number) => (
+              <ChatMessage
+                key={index}
+                authorName={message.authorName}
+                message={message.message}
+              />
+            ),
+          )}
+        </ScrollEvent>
+      )}
     </>
   );
 };
