@@ -8,7 +8,7 @@ interface Props extends YouTubeChatMessageInterface {}
 
 const ChatMessage = (props: Props) => {
   return (
-    <div className='m-3'>
+    <div className='m-2'>
       <Avatar
         size={{ xs: 24, sm: 32, md: 40, lg: 64 }}
         icon={<UserOutlined />}

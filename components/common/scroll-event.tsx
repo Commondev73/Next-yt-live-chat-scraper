@@ -2,8 +2,17 @@
 
 import { ReactNode } from 'react';
 
-const ScrollEvent = ({ children }: { children: ReactNode }) => {
-  return <div className="overflow-auto" id='scrollEvent'>{children}</div>;
+type Props = {
+  children: ReactNode;
+  className: string;
+};
+
+const ScrollEvent = ({ children, className }: Props) => {
+  return (
+    <div className={`overflow-auto ${className}`} id="scrollEvent">
+      {children}
+    </div>
+  );
 };
 
 export default ScrollEvent;

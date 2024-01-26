@@ -16,3 +16,4 @@ export const YOUTUBE_ELEMENT_CHAT_MESSAGE_CONSTANT =
   "yt-live-chat-text-message-renderer";
 
 export const YOUTUBE_LIVE_CHAT_DELAY = 20 * 1000 // 20 sec
+export const YOUTUBE_LIVE_CHAT_MAXIMUM_MESSAGE = 50 
