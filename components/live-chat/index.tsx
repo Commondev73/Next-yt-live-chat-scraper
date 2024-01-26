@@ -37,7 +37,7 @@ const LiveChat = (props: Props) => {
 
   const scrollToBottom = () => {
     const element = document.getElementById('scrollEvent') as HTMLElement;
-    if (element && scrollAuto) {
+    if (element) {
       const { scrollHeight } = element;
 
       element.scrollTo({
@@ -51,10 +51,14 @@ const LiveChat = (props: Props) => {
     const target = e.target as HTMLElement;
     const { scrollTop, scrollHeight, offsetHeight } = target;
     const position = scrollTop + offsetHeight;
-    // if (position >= scrollHeight) {
-    //   setScrollAuto(true);
-    // }
-    // setScrollAuto(false);
+    
+    if (position < scrollHeight) {
+      setScrollAuto(false);
+    }
+
+    if (position >= scrollHeight) {
+      setScrollAuto(true);
+    }
   };
 
   useEffect(() => {
@@ -68,8 +72,8 @@ const LiveChat = (props: Props) => {
   });
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    scrollAuto && scrollToBottom();
+  }, [messages, scrollAuto]);
 
   return (
     <>
@@ -85,7 +89,7 @@ const LiveChat = (props: Props) => {
               />
             </Space>
             <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl">
-              {props.liveId}
+              {props.liveId} {String(scrollAuto)}
             </span>
           </div>
           {/* <div>
