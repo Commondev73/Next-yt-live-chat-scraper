@@ -33,11 +33,14 @@ export const scraperYoutubeLiveChatHelper = async (
         ).innerText;
         const message = (comment.querySelector('#message') as HTMLElement)
           .innerText;
-
-        messages.push({
-          authorName,
-          message,
-        });
+        
+          if(message && message.length > 0) {
+            messages.push({
+              authorName,
+              message,
+            });
+          }
+        
       });
 
       return messages;

@@ -10,8 +10,8 @@ import { resetMessages, setMessages } from '@/redux/slices/youtube';
 import { YouTubeChatMessageInterface } from '@/interfaces/youtube.interface';
 import { isEmpty } from 'lodash';
 import { YOUTUBE_LIVE_CHAT_DELAY } from '@/constants/youtube.constants';
-import { Space, Switch } from 'antd';
-import { YoutubeOutlined } from '@ant-design/icons';
+import { Button, Space } from 'antd';
+import { YoutubeOutlined, ArrowDownOutlined } from '@ant-design/icons';
 
 type Props = {
   liveId: string;
@@ -80,7 +80,7 @@ const LiveChat = (props: Props) => {
       {isEmpty(messages) ? (
         <LoadingPage />
       ) : (
-        <div className="m-3">
+        <div className="m-3 relative">
           <div className="flex m-3 gap-1 items-center">
             <Space className="mr-5">
               <YoutubeOutlined
@@ -92,17 +92,6 @@ const LiveChat = (props: Props) => {
               {props.liveId}
             </span>
           </div>
-          {/* <div>
-            <Switch
-              checkedChildren="กรองคำถาม"
-              unCheckedChildren="ไม่กรองคำถาม"></Switch>
-            <Switch
-              checkedChildren="กรองคำถาม"
-              unCheckedChildren="ไม่กรองคำถาม"></Switch>
-            <Switch
-              checkedChildren="กรองคำถาม"
-              unCheckedChildren="ไม่กรองคำถาม"></Switch>
-          </div> */}
           <ScrollEvent
             className="h-[90vh] p-2 rounded border border-solid"
             onScroll={(e) => scrollHandle(e)}>
@@ -116,6 +105,15 @@ const LiveChat = (props: Props) => {
               ),
             )}
           </ScrollEvent>
+          {!scrollAuto && (
+            <div className="w-full absolute flex justify-center bottom-4">
+              <Button
+                type="primary"
+                shape="circle"
+                size="large"
+                icon={<ArrowDownOutlined onClick={scrollToBottom} />}></Button>
+            </div>
+          )}
         </div>
       )}
     </>
