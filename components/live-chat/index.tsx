@@ -5,7 +5,7 @@ import ScrollEvent from '../common/scroll-event';
 import ChatMessage from '../chat-message';
 import LoadingPage from '../common/loading-page';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { resetMessages, setMessages } from '@/redux/slices/youtube';
 import { YouTubeChatMessageInterface } from '@/interfaces/youtube.interface';
 import { isEmpty } from 'lodash';
@@ -18,6 +18,7 @@ type Props = {
 };
 
 const LiveChat = (props: Props) => {
+  const [scrollAuto, setScrollAuto] = useState(true);
   const dispatch = useAppDispatch();
   const messages: YouTubeChatMessageInterface[] = useAppSelector(
     (state) => state.youtube.messages,
@@ -36,9 +37,24 @@ const LiveChat = (props: Props) => {
 
   const scrollToBottom = () => {
     const element = document.getElementById('scrollEvent') as HTMLElement;
-    if (element && element.scrollHeight > 0) {
-      element.scrollTo({ top: element.scrollHeight, behavior: 'smooth' });
+    if (element && scrollAuto) {
+      const { scrollHeight } = element;
+
+      element.scrollTo({
+        top: scrollHeight,
+        behavior: 'smooth',
+      });
     }
+  };
+
+  const scrollHandle = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
+    const target = e.target as HTMLElement;
+    const { scrollTop, scrollHeight, offsetHeight } = target;
+    const position = scrollTop + offsetHeight;
+    // if (position >= scrollHeight) {
+    //   setScrollAuto(true);
+    // }
+    // setScrollAuto(false);
   };
 
   useEffect(() => {
@@ -83,7 +99,9 @@ const LiveChat = (props: Props) => {
               checkedChildren="กรองคำถาม"
               unCheckedChildren="ไม่กรองคำถาม"></Switch>
           </div> */}
-          <ScrollEvent className="h-[90vh] p-2 rounded border border-solid">
+          <ScrollEvent
+            className="h-[90vh] p-2 rounded border border-solid"
+            onScroll={(e) => scrollHandle(e)}>
             {messages.map(
               (message: YouTubeChatMessageInterface, index: number) => (
                 <ChatMessage
