@@ -51,7 +51,7 @@ const LiveChat = (props: Props) => {
     const target = e.target as HTMLElement;
     const { scrollTop, scrollHeight, offsetHeight } = target;
     const position = scrollTop + offsetHeight;
-    
+
     if (position < scrollHeight) {
       setScrollAuto(false);
     }
@@ -89,7 +89,7 @@ const LiveChat = (props: Props) => {
               />
             </Space>
             <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl">
-              {props.liveId} {String(scrollAuto)}
+              {props.liveId}
             </span>
           </div>
           {/* <div>
