@@ -62,9 +62,16 @@ const LiveChat = (props: Props) => {
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    let interval: NodeJS.Timeout;
+
+    if (isEmpty(messages)) {
       getMessages(props.liveId);
-    }, YOUTUBE_LIVE_CHAT_DELAY);
+    } else {
+      interval = setInterval(() => {
+        getMessages(props.liveId);
+      }, YOUTUBE_LIVE_CHAT_DELAY);
+    }
+
     return () => {
       clearInterval(interval);
       resetMessages();
@@ -84,16 +91,16 @@ const LiveChat = (props: Props) => {
           <div className="flex m-3 gap-1 items-center">
             <Space className="mr-5">
               <YoutubeOutlined
-                className="text-5xl"
+                className="text-4xl"
                 style={{ color: 'rgb(239 68 68)' }}
               />
             </Space>
-            <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl">
+            <span className="text-lg sm:text-lg md:text-xl lg:text-2xl">
               {props.liveId}
             </span>
           </div>
           <ScrollEvent
-            className="h-[90vh] p-2 rounded border border-solid"
+            className="h-[85vh] p-2 rounded border border-solid"
             onScroll={(e) => scrollHandle(e)}>
             {messages.map(
               (message: YouTubeChatMessageInterface, index: number) => (
