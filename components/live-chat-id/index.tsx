@@ -6,6 +6,7 @@ import { SearchProps } from 'antd/es/input';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { youtubeUrlValidateHelper, youtubeWatchOrLiveValueHelper } from '@/helpers/youtube.helper';
 
 type Props = {
   version: string;
@@ -31,9 +32,13 @@ const LiveChatId = (props: Props) => {
 
   const onSubmit = (values: Input) => {
     setLoading(true);
+    const liveId = youtubeWatchOrLiveValueHelper(values.liveId)
+    router.push(`/yt-live-chat/${liveId}`);
     reset();
-    router.push(`/yt-live-chat/${values.liveId}`);
   };
+
+  const validateSearch = (value: string): boolean =>
+    value.length <= 15 ? true : youtubeUrlValidateHelper(value);
 
   return (
     <div className="m-5">
@@ -52,11 +57,14 @@ const LiveChatId = (props: Props) => {
           required: 'Live ID is required',
           minLength: 5,
           maxLength: 100,
+          validate: validateSearch,
         }}
         render={({ field }) => (
           <Input.Search
-            className={`${errors[InputName.liveId] && "rounded-lg border-2 border-red-500"}`}
-            placeholder="Live Chat ID"
+            className={`${
+              errors[InputName.liveId] && 'rounded-lg border-2 border-red-500'
+            }`}
+            placeholder="Live chat id"
             allowClear
             enterButton
             size="large"
