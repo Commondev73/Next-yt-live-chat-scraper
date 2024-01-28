@@ -4,6 +4,7 @@ import { AntdRegistry } from '@ant-design/nextjs-registry';
 import './globals.css';
 import ReduxProvider from '@/redux/provider';
 import Header from '@/components/header';
+import Themes from '@/components/themes';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,10 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header />
-        <AntdRegistry>
-          <ReduxProvider>{children}</ReduxProvider>
-        </AntdRegistry>
+        <Themes>
+          <Header />
+          <AntdRegistry>
+            <ReduxProvider>{children}</ReduxProvider>
+          </AntdRegistry>
+        </Themes>
       </body>
     </html>
   );

@@ -11,7 +11,7 @@ import { YouTubeChatMessageInterface } from '@/interfaces/youtube.interface';
 import { isEmpty } from 'lodash';
 import { YOUTUBE_LIVE_CHAT_DELAY } from '@/constants/youtube.constants';
 import { Button, Space } from 'antd';
-import { YoutubeOutlined, ArrowDownOutlined } from '@ant-design/icons';
+import { YoutubeFilled, ArrowDownOutlined } from '@ant-design/icons';
 
 type Props = {
   liveId: string;
@@ -90,7 +90,7 @@ const LiveChat = (props: Props) => {
         <div className="m-3 relative">
           <div className="flex m-3 gap-1 items-center">
             <Space className="mr-5">
-              <YoutubeOutlined
+              <YoutubeFilled
                 className="text-4xl"
                 style={{ color: 'rgb(239 68 68)' }}
               />
@@ -100,7 +100,7 @@ const LiveChat = (props: Props) => {
             </span>
           </div>
           <ScrollEvent
-            className="h-[85vh] p-2 rounded border border-solid"
+            className="h-[85vh] p-2 rounded border-2 border-solid"
             onScroll={(e) => scrollHandle(e)}>
             {messages.map(
               (message: YouTubeChatMessageInterface, index: number) => (
