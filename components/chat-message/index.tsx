@@ -13,7 +13,7 @@ const ChatMessage = (props: Props) => {
         size={{ xs: 24, sm: 32, md: 38 }}
         icon={<UserOutlined />}
       />
-      <span className="mx-1.5 font-bold">{props.authorName}</span>
+      <span className="mx-2 font-bold text-gray-500 dark:text-gray-300">{props.authorName}</span>
       <span>{props.message}</span>
     </div>
   );
