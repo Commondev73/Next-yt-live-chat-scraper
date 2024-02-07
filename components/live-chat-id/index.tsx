@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { youtubeUrlValidateHelper, youtubeWatchOrLiveValueHelper } from '@/helpers/youtube.helper';
+import { useLocale } from 'next-intl';
 
 type Props = {
   version: string;
@@ -22,6 +23,7 @@ enum InputName {
 
 const LiveChatId = (props: Props) => {
   const router = useRouter();
+  const locale = useLocale()
   const { control, formState, handleSubmit, reset } = useForm<Input>();
   const { errors } = formState;
   const [loading, setLoading] = useState(false);
@@ -33,7 +35,7 @@ const LiveChatId = (props: Props) => {
   const onSubmit = (values: Input) => {
     setLoading(true);
     const liveId = youtubeWatchOrLiveValueHelper(values.liveId)
-    router.push(`/yt-live-chat/${liveId}`);
+    router.push(`/${locale}/yt-live-chat/${liveId}`);
     reset();
   };
 
