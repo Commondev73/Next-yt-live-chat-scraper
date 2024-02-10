@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { useEffect, useState } from 'react';
 import { setMessages } from '@/redux/slices/youtube';
 import { YouTubeChatMessageInterface } from '@/interfaces/youtube.interface';
-import { isEmpty  ,debounce} from 'lodash';
+import { isEmpty, debounce } from 'lodash';
 import { YOUTUBE_LIVE_CHAT_DELAY } from '@/constants/youtube.constants';
 import { Button, Space } from 'antd';
 import { YoutubeFilled, ArrowDownOutlined } from '@ant-design/icons';
@@ -21,7 +21,7 @@ type Props = {
 const LiveChat = (props: Props) => {
   const [scrollAuto, setScrollAuto] = useState(true);
   const dispatch = useAppDispatch();
-  const t = useTranslations('youtube')
+  const t = useTranslations('youtube');
   const messages: YouTubeChatMessageInterface[] = useAppSelector(
     (state) => state.youtube.messages,
   );
@@ -38,7 +38,7 @@ const LiveChat = (props: Props) => {
   };
 
   const scrollToBottom = () => {
-    console.log('scrollToBottom')
+    console.log('scrollToBottom');
     const element = document.getElementById('scrollEvent') as HTMLElement;
     if (element) {
       const { scrollHeight } = element;
@@ -63,6 +63,8 @@ const LiveChat = (props: Props) => {
       setScrollAuto(true);
     }
   };
+
+  const handleButtonScroll = debounce(() => scrollToBottom(), 500);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -120,7 +122,7 @@ const LiveChat = (props: Props) => {
                 type="primary"
                 shape="circle"
                 size="large"
-                icon={<ArrowDownOutlined onClick={scrollToBottom} />}></Button>
+                icon={<ArrowDownOutlined onClick={handleButtonScroll} />}></Button>
             </div>
           )}
         </div>
