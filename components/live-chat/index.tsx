@@ -6,12 +6,13 @@ import ChatMessage from '../chat-message';
 import LoadingPage from '../common/loading-page';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { useEffect, useState } from 'react';
-import { resetMessages, setMessages } from '@/redux/slices/youtube';
+import { setMessages } from '@/redux/slices/youtube';
 import { YouTubeChatMessageInterface } from '@/interfaces/youtube.interface';
-import { isEmpty } from 'lodash';
+import { isEmpty  ,debounce} from 'lodash';
 import { YOUTUBE_LIVE_CHAT_DELAY } from '@/constants/youtube.constants';
 import { Button, Space } from 'antd';
 import { YoutubeFilled, ArrowDownOutlined } from '@ant-design/icons';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   liveId: string;
@@ -20,6 +21,7 @@ type Props = {
 const LiveChat = (props: Props) => {
   const [scrollAuto, setScrollAuto] = useState(true);
   const dispatch = useAppDispatch();
+  const t = useTranslations('youtube')
   const messages: YouTubeChatMessageInterface[] = useAppSelector(
     (state) => state.youtube.messages,
   );
@@ -36,6 +38,7 @@ const LiveChat = (props: Props) => {
   };
 
   const scrollToBottom = () => {
+    console.log('scrollToBottom')
     const element = document.getElementById('scrollEvent') as HTMLElement;
     if (element) {
       const { scrollHeight } = element;
@@ -74,7 +77,6 @@ const LiveChat = (props: Props) => {
 
     return () => {
       clearInterval(interval);
-      resetMessages();
     };
   });
 
@@ -96,7 +98,7 @@ const LiveChat = (props: Props) => {
               />
             </Space>
             <span className="text-lg sm:text-lg md:text-xl lg:text-2xl">
-              {props.liveId}
+              {t('liveId')} {props.liveId}
             </span>
           </div>
           <ScrollEvent

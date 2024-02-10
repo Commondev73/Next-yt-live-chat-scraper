@@ -1,11 +1,12 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import { AntdRegistry } from '@ant-design/nextjs-registry';
-import './globals.css';
 import ReduxProvider from '@/redux/provider';
 import Header from '@/components/header';
 import Themes from '@/components/themes';
 import { LocaleEnum } from '@/i18n';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import { AntdRegistry } from '@ant-design/nextjs-registry';
+import { NextIntlClientProvider, useMessages } from 'next-intl';
+import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,15 +22,18 @@ const LocaleLayout = ({
   children: React.ReactNode;
   params: { locale: LocaleEnum };
 }) => {
+  const messages = useMessages();
   return (
-    <html lang={locale}>
+    <html suppressHydrationWarning lang={locale}>
       <body className={inter.className}>
-        <Themes>
-          <Header />
-          <AntdRegistry>
-            <ReduxProvider>{children}</ReduxProvider>
-          </AntdRegistry>
-        </Themes>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <Themes>
+            <Header />
+            <AntdRegistry>
+              <ReduxProvider>{children}</ReduxProvider>
+            </AntdRegistry>
+          </Themes>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
