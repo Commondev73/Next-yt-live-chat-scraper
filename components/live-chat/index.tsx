@@ -38,7 +38,6 @@ const LiveChat = (props: Props) => {
   };
 
   const scrollToBottom = () => {
-    console.log('scrollToBottom');
     const element = document.getElementById('scrollEvent') as HTMLElement;
     if (element) {
       const { scrollHeight } = element;
