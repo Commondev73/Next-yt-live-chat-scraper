@@ -13,15 +13,17 @@ import { YOUTUBE_LIVE_CHAT_DELAY } from '@/constants/youtube.constants';
 import { Button, Space } from 'antd';
 import { YoutubeFilled, ArrowDownOutlined } from '@ant-design/icons';
 import { useTranslations } from 'next-intl';
+import { useRouter } from '@/navigation';
 
 type Props = {
   liveId: string;
 };
 
 const LiveChat = (props: Props) => {
-  const [scrollAuto, setScrollAuto] = useState(true);
+  const router = useRouter()
   const dispatch = useAppDispatch();
   const t = useTranslations('youtube');
+  const [scrollAuto, setScrollAuto] = useState(true);
   const messages: YouTubeChatMessageInterface[] = useAppSelector(
     (state) => state.youtube.messages,
   );
@@ -33,7 +35,9 @@ const LiveChat = (props: Props) => {
       if (!isEmpty(data)) {
         messages = data.messages;
       }
-    } catch (_) {}
+    } catch (e) {
+      router.push('/error')
+    }
     dispatch(setMessages({ messages }));
   };
 
@@ -121,7 +125,9 @@ const LiveChat = (props: Props) => {
                 type="primary"
                 shape="circle"
                 size="large"
-                icon={<ArrowDownOutlined onClick={handleButtonScroll} />}></Button>
+                icon={
+                  <ArrowDownOutlined onClick={handleButtonScroll} />
+                }></Button>
             </div>
           )}
         </div>
