@@ -9,11 +9,10 @@ export default createMiddleware({
 });
 
 export const config = {
-  // Match only internationalized pathnames
   matcher: [
     // Enable a redirect to a matching locale at the root
     '/',
-    
+
     // Set a cookie to remember the previous locale for
     // all requests that have a locale prefix
     '/(th|en)/:path*',
