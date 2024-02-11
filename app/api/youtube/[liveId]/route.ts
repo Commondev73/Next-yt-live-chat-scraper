@@ -13,6 +13,6 @@ export async function GET(request: Request, context: Context) {
         const messages: YouTubeChatMessageInterface[] = await scraperYoutubeLiveChatHelper(liveId);
         return Response.json({ status: 200, messages })
     } catch (error) {
-        return Response.json({ status: 500 })
+        return Response.error()
     }
 }
