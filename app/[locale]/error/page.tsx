@@ -1,17 +1,20 @@
 'use client';
 
 import ResultPage from '@/components/common/result-page';
+import { useTranslations } from 'next-intl';
 
 const ErrorPage = () => {
+  const t = useTranslations();
+
   return (
     <ResultPage
       status={500}
-      title={<p className='text-black dark:text-white'>500</p>}
-      subTitle={<p className='text-black dark:text-white'>Sorry, something went wrong.</p>}
-      herf='/'
-      textButton='Back Home'
+      title={t('error.title')}
+      subTitle={t('error.description')}
+      herf="/"
+      textButton={t('common.backHome')}
     />
   );
 };
 
-export default ErrorPage
+export default ErrorPage;

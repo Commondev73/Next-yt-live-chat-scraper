@@ -1,8 +1,19 @@
 {
+  "common": {
+    "backHome" : "Back Home"
+  },
   "youtube": {
-    "liveId":"Live Chat ID",
+    "liveId": "Live Chat ID",
     "form": {
       "liveId": "Live id or Link live"
     }
+  },
+  "notFound": {
+    "title": "404",
+    "description": "Sorry, the page you visited does not exist."
+  },
+  "error" : {
+    "title": "500",
+    "description": "Sorry, something went wrong."
   }
 }

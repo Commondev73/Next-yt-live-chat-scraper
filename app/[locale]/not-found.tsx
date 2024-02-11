@@ -1,15 +1,18 @@
 'use client';
 
 import ResultPage from '@/components/common/result-page';
+import { useTranslations } from 'next-intl';
 
 const NotFoundPage = () => {
+  const t = useTranslations();
+  
   return (
     <ResultPage
       status={404}
-      title={<p className='text-black dark:text-white'>404</p>}
-      subTitle={<p className='text-black dark:text-white'>Sorry, the page you visited does not exist.</p>}
+      title={t('notFound.title')}
+      subTitle={t('notFound.description')}
       herf="/"
-      textButton="Back Home"
+      textButton={t('common.backHome')}
     />
   );
 };
