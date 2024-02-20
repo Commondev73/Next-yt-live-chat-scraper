@@ -1,4 +1,4 @@
-export enum LivePathname {
+export enum LivePathnameEnum {
     watch = '/watch',
     live = '/live'
 }
