@@ -10,7 +10,7 @@ import { setMessages } from '@/redux/slices/youtube';
 import { YouTubeChatMessageInterface } from '@/interfaces/youtube.interface';
 import { isEmpty, debounce } from 'lodash';
 import { YOUTUBE_LIVE_CHAT_DELAY } from '@/constants/youtube.constants';
-import { Button, Space } from 'antd';
+import { Button, Space, Slider } from 'antd';
 import { YoutubeFilled, ArrowDownOutlined } from '@ant-design/icons';
 import { useTranslations } from 'next-intl';
 import { useRouter } from '@/navigation';
@@ -20,7 +20,7 @@ type Props = {
 };
 
 const LiveChat = (props: Props) => {
-  const router = useRouter()
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const t = useTranslations('youtube');
   const [scrollAuto, setScrollAuto] = useState(true);
@@ -36,7 +36,7 @@ const LiveChat = (props: Props) => {
         messages = data.messages;
       }
     } catch (e) {
-      router.push('/error')
+      router.push('/error');
     }
     dispatch(setMessages({ messages }));
   };
@@ -95,17 +95,21 @@ const LiveChat = (props: Props) => {
         <LoadingPage />
       ) : (
         <div className="m-3 relative">
-          <div className="flex m-3 gap-1 items-center">
-            <Space className="mr-5">
-              <YoutubeFilled
-                className="text-4xl"
-                style={{ color: 'rgb(239 68 68)' }}
-              />
-            </Space>
-            <span className="text-lg sm:text-lg md:text-xl lg:text-2xl">
-              {t('liveId')} {props.liveId}
-            </span>
+          <div>
+            <div className="flex m-3 gap-1 items-center">
+              <Space className="mr-5">
+                <YoutubeFilled
+                  className="text-4xl"
+                  style={{ color: 'rgb(239 68 68)' }}
+                />
+              </Space>
+              <span className="text-lg sm:text-lg md:text-xl lg:text-2xl">
+                {t('liveId')} {props.liveId}
+              </span>
+            </div>
+            <Slider tooltip={{ formatter: null }} />
           </div>
+
           <ScrollEvent
             className="h-[85vh] p-2 rounded border-2 border-solid"
             onScroll={(e) => scrollHandle(e)}>

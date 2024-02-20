@@ -1,12 +1,12 @@
 import ReduxProvider from '@/redux/provider';
 import Header from '@/components/header';
 import Themes from '@/components/themes';
-import { LocaleEnum } from '@/i18n';
+import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
-import './globals.css';
+import { LocaleEnum } from '@/enums/locale.enum';
 
 const inter = Inter({ subsets: ['latin'] });
 

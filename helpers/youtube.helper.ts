@@ -1,8 +1,4 @@
-
-enum LivePathname {
-    watch = '/watch',
-    live = '/live'
-}
+import { LivePathname } from "@/enums/youtube.enum";
 
 export const youtubeUrlValidateHelper = (url: string): boolean => {
     const regex = /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:watch\?v=|live\/))([\w\-]+)/gm;

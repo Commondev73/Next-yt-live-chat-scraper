@@ -1,10 +1,7 @@
 import { notFound } from 'next/navigation';
 import { getRequestConfig } from 'next-intl/server';
+import { LocaleEnum } from './enums/locale.enum';
 
-export enum LocaleEnum {
-    EN = 'en',
-    TH = 'th'
-}
 // Can be imported from a shared config
 export const locales = Object.values(LocaleEnum)
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { LocaleEnum } from '@/i18n';
+import { LocaleEnum } from '@/enums/locale.enum';
 import { Link, usePathname } from '@/navigation';
 import { Dropdown, Button, Space, MenuProps } from 'antd';
 import { useLocale } from 'next-intl';

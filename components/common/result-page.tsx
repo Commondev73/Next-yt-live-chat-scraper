@@ -1,6 +1,6 @@
 'use client';
 
-import { LocaleEnum } from '@/i18n';
+import { LocaleEnum } from '@/enums/locale.enum';
 import { Link } from '@/navigation';
 import { Button, Result } from 'antd';
 import { ResultStatusType } from 'antd/es/result';
