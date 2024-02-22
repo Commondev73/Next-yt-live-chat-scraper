@@ -4,16 +4,18 @@ import axios from 'axios';
 import ScrollEvent from '../common/scroll-event';
 import ChatMessage from '../chat-message';
 import LoadingPage from '../common/loading-page';
+import FontSizeSlider from '../common/font-size-slider';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { useEffect, useState } from 'react';
 import { setMessages } from '@/redux/slices/youtube';
 import { YouTubeChatMessageInterface } from '@/interfaces/youtube.interface';
 import { isEmpty, debounce } from 'lodash';
 import { YOUTUBE_LIVE_CHAT_DELAY } from '@/constants/youtube.constants';
-import { Button, Space, Slider } from 'antd';
+import { Button, Space } from 'antd';
 import { YoutubeFilled, ArrowDownOutlined } from '@ant-design/icons';
 import { useTranslations } from 'next-intl';
 import { useRouter } from '@/navigation';
+import { FontSizeClassEnum } from '@/enums/font-size.enum';
 
 type Props = {
   liveId: string;
@@ -24,6 +26,7 @@ const LiveChat = (props: Props) => {
   const dispatch = useAppDispatch();
   const t = useTranslations('youtube');
   const [scrollAuto, setScrollAuto] = useState(true);
+  const [fontSize, setFontSize] = useState(FontSizeClassEnum.BASE);
   const messages: YouTubeChatMessageInterface[] = useAppSelector(
     (state) => state.youtube.messages,
   );
@@ -69,6 +72,10 @@ const LiveChat = (props: Props) => {
 
   const handleButtonScroll = debounce(() => scrollToBottom(), 500);
 
+  const onChange = (value: FontSizeClassEnum) => {
+    setFontSize(value);
+  };
+
   useEffect(() => {
     let interval: NodeJS.Timeout;
 
@@ -95,8 +102,8 @@ const LiveChat = (props: Props) => {
         <LoadingPage />
       ) : (
         <div className="m-3 relative">
-          <div>
-            <div className="flex m-3 gap-1 items-center">
+          <div className='flex flex-col sm:flex-row'>
+            <div className="flex p-3 gap-1 items-center basis-2/4">
               <Space className="mr-5">
                 <YoutubeFilled
                   className="text-4xl"
@@ -107,11 +114,13 @@ const LiveChat = (props: Props) => {
                 {t('liveId')} {props.liveId}
               </span>
             </div>
-            <Slider tooltip={{ formatter: null }} />
+            <div className="p-3 basis-2/4">
+              <FontSizeSlider onChange={onChange}></FontSizeSlider>
+            </div>
           </div>
 
           <ScrollEvent
-            className="h-[85vh] p-2 rounded border-2 border-solid"
+            className={`h-[85vh] p-2 rounded border-2 border-solid ${fontSize}`}
             onScroll={(e) => scrollHandle(e)}>
             {messages.map(
               (message: YouTubeChatMessageInterface, index: number) => (
