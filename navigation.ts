@@ -1,5 +1,5 @@
 import { createSharedPathnamesNavigation } from 'next-intl/navigation';
-import { LocaleEnum } from './i18n';
+import { LocaleEnum } from './enums/locale.enum';
 
 export const locales = Object.values(LocaleEnum)
 
